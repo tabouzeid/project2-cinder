@@ -14,7 +14,13 @@ const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/u
 var passport   = require('./config/passport');
 var session    = require('express-session');
 var exphbs = require("express-handlebars");
+
+//File upload stuff
 var bodyParser = require("body-parser");
+const fileUpload = require('express-fileupload');
+const cors = require("cors");
+const morgan = require("morgan");
+const _ = require("lodash");
 
 
 // Sets up the Express App
@@ -29,7 +35,17 @@ const io = socketio(server);
 // })
 // const io = socketio(server);
 
-// #############################
+// ############################# All the app.use stuff
+
+// this is for file upload
+app.use(fileUpload({
+    createParentPath: true
+}));
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(morgan('dev'));
 
 app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
  
@@ -38,13 +54,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //require('./config/passport.js')(passport, db.User);
-
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Static directory
 app.use(express.static("public"));
+
+// set static folder
+app.use(express.static(path.join(__dirname, "public")));
 
 
 // Routes
@@ -63,17 +81,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 
 app.set("view engine", "handlebars");
 
-// set static folder
-app.use(express.static(path.join(__dirname, "public")));
 
-// Syncing our sequelize models and then starting our Express app
-// =============================================================
-// force: true 
-db.sequelize.sync({ }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
-});
 
 // #########################################  End of Express Stuff ######################
 
@@ -141,9 +149,22 @@ const botName = "Cinder Bot";
 // Beginning of Server Stuff ############################################################################
 var PORT = process.env.PORT || 8080;
 const PORT2 = process.env.PORT || 3000;
+const port3 = process.env.PORT || 8081;
 
 //
+
+// Syncing our sequelize models and then starting our Express app
+// =============================================================
+// force: true 
+db.sequelize.sync({ }).then(function() {
+    app.listen(PORT, function() {
+      console.log("App listening on PORT " + PORT);
+    });
+  });
 
 // initializing port for chat
 server.listen(PORT2, () => console.log(`Server running on port ${PORT2}`));
 
+app.listen(port3, ()=>
+console.log(`App is listening on PORT ${port3} for file upload stuff.`)
+);
