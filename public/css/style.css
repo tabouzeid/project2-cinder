@@ -193,14 +193,14 @@ h1 {
 
 body {
 	background: #f3e0e2;
-	display: flex;
+	/* display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;
+	flex-direction: column; */
 	font-family: 'Montserrat', sans-serif;
-	height: 150vh;
-	margin: -10px 0 10px;
-	background-image: url("./img/background.jpg");
+	/* height: 150vh; */
+	margin: 10px 0 10px;
+	background-image: url("/img/background.jpg");
 }
 
 

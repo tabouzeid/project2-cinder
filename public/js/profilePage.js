@@ -108,4 +108,27 @@ $(document).ready(function() {
             placeHolder.append(person);
         });
     });
+
+    // $("#chatSegment").hide();
+    // $("#mainSegment").hide();
+    
+    // $("#chatSubmit").on("click", function(){
+    //     $("#mainSegment", "#chatSegment").toggle();
+    // }); 
+
+    // var mainSegment = document.getElementById("mainSegment");
+    // var iframeChat = document.getElementById("iframeChat");
+    
+    // function showChatroom(){
+    //     mainSegment.classList.add("hidden");
+    //     chatSegment.classList.remove("hidden");
+    //     resizeFrame();
+
+    // }
+    // function resizeFrame(){
+    //     $(iframeChat).height($("chat-container").height());
+    //     $(iframeChat).width($("chat-container").width());
+        
+    // }
+
 });

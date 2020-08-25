@@ -123,6 +123,11 @@ package-lock.json
 
 package.json
 
+/config/*
+
 /config/config.json
+
+config/*
+config/config.json
 
 views/partials/.DS_Store
